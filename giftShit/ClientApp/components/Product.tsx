@@ -25,7 +25,18 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
 
             <br/>
             <div className="input-group">
-                <span className="input-group-addon"  id="image">Image</span>
+                <span className="input-group-addon" id="price">Price</span>
+                <input
+                    type="number"
+                    step="0.1"
+                    className="form-control"
+                    placeholder="Price"
+                    aria-describedby="price"/>
+            </div>
+
+            <br/>
+            <div className="input-group">
+                <span className="input-group-addon" id="image">Image</span>
                 <input
                     type="file"
                     accept="image/*"
