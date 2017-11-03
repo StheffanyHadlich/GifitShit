@@ -4,9 +4,8 @@ import {RouteComponentProps} from 'react-router';
 export class Product extends React.Component < RouteComponentProps < {} >, {} > {
     public render() {
         return <div>
-            <br/>
-            <br/>
-            
+
+            <h1>Add a New Product</h1>
             <button
                 type="button"
                 className="btn btn-primary"
@@ -23,7 +22,7 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">New message</h5>
+                            <h5 className="modal-title" id="exampleModalLabel">New Product</h5>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -79,8 +78,11 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
                 </div>
             </div>
 
+            <br/>
+            <br/>
+            
             < h1>
-                Showcase
+                All Products
             </h1>
             <div className="row">
                 <div className="col-sm-6 col-md-4">
@@ -91,7 +93,7 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
                             <p>batatas
                             </p>
                             <p>
-                                <a href="#" className="btn btn-primary" role="button">Add to the list</a>
+                                <a href="signup" className="btn btn-primary" role="button">Add to the list</a>
                             </p>
                         </div>
                     </div>

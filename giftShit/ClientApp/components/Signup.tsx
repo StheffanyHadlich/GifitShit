@@ -33,12 +33,9 @@ export class Signup extends React.Component < RouteComponentProps < {} >, {} > {
             </div>
             <br/>
             <div className="btn-group" role="group" aria-label="...">
-                <button type="button" className="btn btn-default">Cancelar</button>
-                <button type="button" className="btn btn-default">Salvar</button>
+                <button type="button" className="btn btn-default">Cancel</button>
+                <button type="button" className="btn btn-default">Save</button>
             </div>      
-
-            
-
         </div>;
     }
 }
