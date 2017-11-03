@@ -27,7 +27,6 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
                 <button type="button" className="btn btn-default">Cancelar</button>
                 <button type="button" className="btn btn-default">Salvar</button>
             </div>
-
         </div>
     }
 }
