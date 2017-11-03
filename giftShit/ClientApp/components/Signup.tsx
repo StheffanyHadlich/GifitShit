@@ -24,7 +24,7 @@ export class Signup extends React.Component < RouteComponentProps < {} >, {} > {
             </div>
             <br/>
             <div className="input-group">
-                <span className="input-group-addon" id="address">Birthday</span>
+                <span className="input-group-addon" id="birthday">Birthday</span>
                 <input
                     type="date"
                     className="form-control"
