@@ -14,7 +14,6 @@ export class Showcase extends React.Component < RouteComponentProps < {} >, {} >
                                     <h3>Cobra com bracinhos</h3>
                                     <p>batatas </p>
                                     <p>
-                                
                                         <a href="#" className="btn btn-primary" role="button">Add to the list</a>
                                     </p>
                                 </div>
