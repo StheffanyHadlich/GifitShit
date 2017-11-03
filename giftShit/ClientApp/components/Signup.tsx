@@ -4,7 +4,7 @@ import {RouteComponentProps} from 'react-router';
 export class Signup extends React.Component < RouteComponentProps < {} >, {} > {
     public render() {
         return <div>
-            <li>Entre com seus dados</li>
+            <h1>Enter Your Data</h1>
             <div className="input-group">
                 <span className="input-group-addon" id="username">Name</span>
                 <input
@@ -24,12 +24,12 @@ export class Signup extends React.Component < RouteComponentProps < {} >, {} > {
             </div>
             <br/>
             <div className="input-group">
-                <span className="input-group-addon" id="address">Address</span>
+                <span className="input-group-addon" id="address">Birthday</span>
                 <input
                     type="date"
                     className="form-control"
                     placeholder="Birthday"
-                    aria-describedby="address"/>
+                    aria-describedby="date"/>
             </div>
             <br/>
             <div className="btn-group" role="group" aria-label="...">
