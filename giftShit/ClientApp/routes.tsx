@@ -6,6 +6,7 @@ import { FetchData } from './components/FetchData';
 import { Counter } from './components/Counter';
 import { Signup } from './components/Signup';
 import { Product } from './components/Product';
+import { Showcase } from './components/Showcase';
 
 
 export const routes = <Layout>
@@ -14,5 +15,6 @@ export const routes = <Layout>
     <Route path='/fetchdata' component={ FetchData } />
     <Route path='/signup' component={ Signup } />
     <Route path='/product' component={ Product } />
+    <Route path='/showcase' component={ Showcase } />
     
 </Layout>;
