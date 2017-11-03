@@ -6,15 +6,15 @@ import { FetchData } from './components/FetchData';
 import { Counter } from './components/Counter';
 import { Signup } from './components/Signup';
 import { Product } from './components/Product';
-import { Showcase } from './components/Showcase';
+import { InitialPage } from './components/InitialPage';
+
 
 
 export const routes = <Layout>
-    <Route exact path='/' component={ Home } />
+    <Route exact path='/' component={ InitialPage } />
     <Route path='/counter' component={ Counter } />
     <Route path='/fetchdata' component={ FetchData } />
     <Route path='/signup' component={ Signup } />
     <Route path='/product' component={ Product } />
-    <Route path='/showcase' component={ Showcase } />
     
 </Layout>;

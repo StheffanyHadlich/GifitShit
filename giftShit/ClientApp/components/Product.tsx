@@ -22,11 +22,24 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
                     placeholder="Description"
                     aria-describedby="description"/>
             </div>
+
+            <br/>
+            <div className="input-group">
+                <span className="input-group-addon"  id="image">Image</span>
+                <input
+                    type="file"
+                    accept="image/*"
+                    className="form-control"
+                    placeholder="Image"
+                    aria-describedby="image"/>
+            </div>
+
             <br/>
             <div className="btn-group" role="group" aria-label="...">
                 <button type="button" className="btn btn-default">Cancelar</button>
                 <button type="button" className="btn btn-default">Salvar</button>
             </div>
+
         </div>
     }
 }
