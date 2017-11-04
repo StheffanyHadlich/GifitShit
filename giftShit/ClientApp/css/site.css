@@ -6,8 +6,8 @@
 .main-nav li a.active,
 .main-nav li a.active:hover,
 .main-nav li a.active:focus {
-    background-color: #4189C0;
-    color: white;
+    background-color:pink;
+    color: blueviolet;
 }
 
 /* Keep the nav menu independent of scrolling and on top of other items */
@@ -41,7 +41,7 @@
         float: none;
     }
     .main-nav .navbar-collapse {
-        border-top: 1px solid #444;
+        border-top: 1px solid rosybrown;
         padding: 0px;
     }
     .main-nav .navbar ul {

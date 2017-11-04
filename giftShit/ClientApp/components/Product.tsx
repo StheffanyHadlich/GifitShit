@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {RouteComponentProps} from 'react-router';
+import * as ReactDOM from 'react-dom';
 
 export class Product extends React.Component < RouteComponentProps < {} >, {} > {
+    static products: any[];
 
-    
-    
     public render() {
         return <div>
 
@@ -14,8 +14,7 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
                 type="button"
                 className="btn btn-primary"
                 data-toggle="modal"
-                data-target="#exampleModal"
-                >New Product</button>
+                data-target="#exampleModal">New Product</button>
 
             <div
                 className="modal fade"
@@ -98,30 +97,41 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
             < h1>
                 All Products
             </h1>
-            <div className="row">
-                <div className="col-sm-6 col-md-4">
-                    <div className="thumbnail">
-                        <img src="snake.jpg" alt="teste 1"/>
-                        <div className="caption">
-                            <h3>Cobra com bracinhos</h3>
-                            <p>batatas
-                            </p>
-                            <p>
-                                <a href="signup" className="btn btn-primary" role="button">Add to the list</a>
-                            </p>
-                        </div>
-                    </div>
-                </div >
-            </div>
+
+            <div id="container"></div>
             <p id="try"><br/></p>
         </div>
 
     }
 
     saveProduct() {
+        var temp = this.newProduct();
+        Product.products = [temp];
+        console.log(temp);
+    }
+
+    productList() {
+        return <div>{Product.products.forEach}</div>;
+    }
+
+    newProduct() {
         var productname = document.querySelector("#productname")as HTMLInputElement;
         var productdescription = document.querySelector("#productdescription")as HTMLInputElement;
         var productprice = document.querySelector("#productprice")as HTMLInputElement;
-        document.getElementById("try")!.innerHTML = (productname.value + "<br/>" + productdescription.value + "<br/>" + productprice.valueAsNumber);
+
+        ReactDOM.render(
+            <div className="row">
+            <div className="col-sm-6 col-md-4">
+                <div className="thumbnail">
+                    <div className="caption">
+                        <h3 id="productname">{productname.value}</h3>
+                        <p id="productdescription">{productdescription.value}</p>
+                        <p>
+                            <a href="signup" className="btn btn-primary" role="button">Add to the list</a>
+                        </p>
+                    </div>
+                </div>
+            </div >
+        </div>, document.getElementById("container"));
     }
 }
