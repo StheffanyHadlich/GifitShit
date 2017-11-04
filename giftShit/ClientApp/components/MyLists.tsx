@@ -27,11 +27,13 @@ export class MyLists extends React.Component < RouteComponentProps < {} >, {} > 
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
+
                         <div className="modal-body">
                             <form>
                                 <div className="input-group">
-                                    <span className="input-group-addon" id="productname">List Name</span>
+                                    <span className="input-group-addon">List Name</span>
                                     <input
+                                        id ="listname"
                                         type="text"
                                         className="form-control"
                                         placeholder="Name"
@@ -39,8 +41,9 @@ export class MyLists extends React.Component < RouteComponentProps < {} >, {} > 
                                 </div>
                             </form>
                         </div>
+                        
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Save</button>
+                            <button type="button" onClick = {()=> this.saveList()} className="btn btn-secondary" data-dismiss="modal">Save</button>
                             <button type="button" className="btn btn-primary">Cancel</button>
                         </div>
                     </div>
@@ -54,5 +57,8 @@ export class MyLists extends React.Component < RouteComponentProps < {} >, {} > 
                 My Lists
             </h1>
         </div>
+    }
+    saveList(){
+        var listname = document.querySelector("#listname")as HTMLInputElement;   
     }
 }

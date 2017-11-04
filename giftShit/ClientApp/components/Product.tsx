@@ -2,19 +2,20 @@ import * as React from 'react';
 import {RouteComponentProps} from 'react-router';
 
 export class Product extends React.Component < RouteComponentProps < {} >, {} > {
+
+    
+    
     public render() {
         return <div>
 
             <h1>Add a New Product</h1>
-            <script type="text/javascript">
-            
-            </script>
+            <script type="text/javascript"></script>
             <button
                 type="button"
                 className="btn btn-primary"
                 data-toggle="modal"
                 data-target="#exampleModal"
-                data-whatever="@mdo">New Product</button>
+                >New Product</button>
 
             <div
                 className="modal fade"
@@ -31,7 +32,8 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
                             </button>
                         </div>
                         <div className="modal-body">
-                            <form name = "newproduct">
+                            <form name="newproduct">
+
                                 <div className="input-group">
                                     <span className="input-group-addon">Product Name</span>
                                     <input
@@ -42,6 +44,7 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
                                         aria-describedby="name"/>
                                 </div>
                                 <br/>
+
                                 <div className="input-group">
                                     <span className="input-group-addon">Description</span>
                                     <textarea
@@ -66,14 +69,16 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
 
                                 <br/>
                                 <div className="input-group">
-                                    <span className="input-group-addon" id="image">Image</span>
+                                    <span className="input-group-addon">Image</span>
                                     <input
+                                        id="productimage"
                                         type="file"
                                         accept="image/*"
                                         className="form-control"
                                         placeholder="Image"
                                         aria-describedby="image"/>
                                 </div>
+
                             </form>
                         </div>
                         <div className="modal-footer">
@@ -87,7 +92,6 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
                     </div>
                 </div>
             </div>
-
             <br/>
             <br/>
 
@@ -109,15 +113,15 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
                     </div>
                 </div >
             </div>
-            <p id = "try"><br/></p>
+            <p id="try"><br/></p>
         </div>
 
     }
-    
+
     saveProduct() {
-        var productname = document.querySelector("#productname") as HTMLInputElement;
-        var productdescription = document.querySelector("#productdescription") as HTMLInputElement;
-        var productprice = document.querySelector("#productprice") as HTMLInputElement; 
-        document.getElementById("try")!.innerHTML=(productname.value+"<br/>"+productdescription.value+"<br/>"+productprice.valueAsNumber);   
+        var productname = document.querySelector("#productname")as HTMLInputElement;
+        var productdescription = document.querySelector("#productdescription")as HTMLInputElement;
+        var productprice = document.querySelector("#productprice")as HTMLInputElement;
+        document.getElementById("try")!.innerHTML = (productname.value + "<br/>" + productdescription.value + "<br/>" + productprice.valueAsNumber);
     }
 }
