@@ -6,6 +6,9 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
         return <div>
 
             <h1>Add a New Product</h1>
+            <script type="text/javascript">
+            
+            </script>
             <button
                 type="button"
                 className="btn btn-primary"
@@ -28,19 +31,21 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
                             </button>
                         </div>
                         <div className="modal-body">
-                            <form>
+                            <form name = "newproduct">
                                 <div className="input-group">
-                                    <span className="input-group-addon" id="productname">Product Name</span>
+                                    <span className="input-group-addon">Product Name</span>
                                     <input
+                                        id="productname"
                                         type="text"
                                         className="form-control"
                                         placeholder="Name"
-                                        aria-describedby="username"/>
+                                        aria-describedby="name"/>
                                 </div>
                                 <br/>
                                 <div className="input-group">
-                                    <span className="input-group-addon" id="address">Description</span>
+                                    <span className="input-group-addon">Description</span>
                                     <textarea
+                                        id="productdescription"
                                         type="text"
                                         className="form-control"
                                         placeholder="Description"
@@ -49,8 +54,9 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
 
                                 <br/>
                                 <div className="input-group">
-                                    <span className="input-group-addon" id="price">Price</span>
+                                    <span className="input-group-addon">Price</span>
                                     <input
+                                        id="productprice"
                                         type="number"
                                         step="0.1"
                                         className="form-control"
@@ -71,7 +77,11 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
                             </form>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Save</button>
+                            <button
+                                type="button"
+                                onClick={() => this.saveProduct()}
+                                className="btn btn-secondary"
+                                data-dismiss="modal">Save</button>
                             <button type="button" className="btn btn-primary">Cancel</button>
                         </div>
                     </div>
@@ -80,7 +90,7 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
 
             <br/>
             <br/>
-            
+
             < h1>
                 All Products
             </h1>
@@ -99,6 +109,15 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
                     </div>
                 </div >
             </div>
+            <p id = "try"><br/></p>
         </div>
+
+    }
+    
+    saveProduct() {
+        var productname = document.querySelector("#productname") as HTMLInputElement;
+        var productdescription = document.querySelector("#productdescription") as HTMLInputElement;
+        var productprice = document.querySelector("#productprice") as HTMLInputElement; 
+        document.getElementById("try")!.innerHTML=(productname.value+"<br/>"+productdescription.value+"<br/>"+productprice.valueAsNumber);   
     }
 }
