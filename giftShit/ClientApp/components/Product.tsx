@@ -3,7 +3,7 @@ import {RouteComponentProps} from 'react-router';
 import * as ReactDOM from 'react-dom';
 
 export class Product extends React.Component < RouteComponentProps < {} >, {} > {
-    static products: any[];
+    static products = [];
 
     public render() {
         return <div>
@@ -105,13 +105,19 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
     }
 
     saveProduct() {
+
         var temp = this.newProduct();
-        Product.products = [temp];
-        console.log(temp);
+
+        Product
+            .products
+            .push(temp as never);
+
+        this.productList();
     }
 
     productList() {
-        return <div>{Product.products.forEach}</div>;
+        ReactDOM.render(
+            <div>{Product.products}</div>, document.getElementById("container"));
     }
 
     newProduct() {
@@ -119,19 +125,19 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
         var productdescription = document.querySelector("#productdescription")as HTMLInputElement;
         var productprice = document.querySelector("#productprice")as HTMLInputElement;
 
-        ReactDOM.render(
-            <div className="row">
+        return <div className="row">
             <div className="col-sm-6 col-md-4">
                 <div className="thumbnail">
                     <div className="caption">
                         <h3 id="productname">{productname.value}</h3>
                         <p id="productdescription">{productdescription.value}</p>
+                        <h5 id="productprice">R$ {productprice.valueAsNumber}</h5>
                         <p>
-                            <a href="signup" className="btn btn-primary" role="button">Add to the list</a>
+                            <a className="btn btn-primary" role="button">Add to the list</a>
                         </p>
                     </div>
                 </div>
             </div >
-        </div>, document.getElementById("container"));
+        </div>;
     }
 }
