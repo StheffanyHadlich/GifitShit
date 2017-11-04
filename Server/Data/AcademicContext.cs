@@ -4,9 +4,9 @@ using Server.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace GiftShit.Data
+namespace Server.Data
 {
-    public class GiftShitContext : DbContext
+    public class ServerContext : DbContext
     {
         public DbSet<Client> Client { get; set; }
         public DbSet<Product> Product { get; set; }
@@ -20,15 +20,13 @@ namespace GiftShit.Data
         {
             const string path = "./Data/database.sqlite";
             if (File.Exists(path))
-            {
+            {   
                 File.Delete(path);
             }
             var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope();
-            var dataContext = serviceScope.ServiceProvider.GetRequiredService<GiftShitContext>();
-            dataContext.Database.EnsureCreated();      
+            var dataContext = serviceScope.ServiceProvider.GetRequiredService<ServerContext>();
+            dataContext.Database.EnsureCreated();
             dataContext.SaveChanges();
         }
-
-
     }
 }
