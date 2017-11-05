@@ -26,6 +26,10 @@ namespace Server.Data
             var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope();
             var dataContext = serviceScope.ServiceProvider.GetRequiredService<ServerContext>();
             dataContext.Database.EnsureCreated();
+
+            dataContext.Product.Add(new Product
+            {
+                Name = "batatinhas"});
             dataContext.SaveChanges();
         }
     }

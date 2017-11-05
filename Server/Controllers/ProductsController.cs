@@ -28,7 +28,7 @@ namespace GiftShit.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(await DbContext.Client.ToListAsync());
+            return Ok(await DbContext.Product.ToListAsync());
         }
 
         // GET api/values/5
