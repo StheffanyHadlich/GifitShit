@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace GiftShit.Controllers
+namespace Server.Controllers
 {
     [Route("api/[controller]")]
     public class ProductsController : Controller
