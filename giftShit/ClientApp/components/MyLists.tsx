@@ -1,7 +1,11 @@
 import * as React from 'react';
 import {RouteComponentProps} from 'react-router';
+import * as ReactDOM from 'react-dom';
+import * as ListContent from "./ListContent";
+import {Link, NavLink} from 'react-router-dom';
 
 export class MyLists extends React.Component < RouteComponentProps < {} >, {} > {
+
     public render() {
         return <div>
 
@@ -10,8 +14,7 @@ export class MyLists extends React.Component < RouteComponentProps < {} >, {} > 
                 type="button"
                 className="btn btn-primary"
                 data-toggle="modal"
-                data-target="#exampleModal"
-               >New List</button>
+                data-target="#exampleModal">New List</button>
 
             <div
                 className="modal fade"
@@ -33,7 +36,7 @@ export class MyLists extends React.Component < RouteComponentProps < {} >, {} > 
                                 <div className="input-group">
                                     <span className="input-group-addon">List Name</span>
                                     <input
-                                        id ="listname"
+                                        id="listname"
                                         type="text"
                                         className="form-control"
                                         placeholder="Name"
@@ -41,9 +44,14 @@ export class MyLists extends React.Component < RouteComponentProps < {} >, {} > 
                                 </div>
                             </form>
                         </div>
-                        
+
                         <div className="modal-footer">
-                            <button type="button" onClick = {()=> this.saveList()} className="btn btn-secondary" data-dismiss="modal">Save</button>
+                            <button
+                                type="button"
+                                onClick=
+                                {()=> this.saveList()}
+                                className="btn btn-secondary"
+                                data-dismiss="modal">Save</button>
                             <button type="button" className="btn btn-primary">Cancel</button>
                         </div>
                     </div>
@@ -52,13 +60,40 @@ export class MyLists extends React.Component < RouteComponentProps < {} >, {} > 
 
             <br/>
             <br/>
-            
+
             < h1>
                 My Lists
             </h1>
+            <div className="row">
+                <div className="col-sm-6 col-md-4">
+                    <div id="container">{MyLists.list}</div>
+                </div>
+            </div>
         </div>
     }
-    saveList(){
-        var listname = document.querySelector("#listname")as HTMLInputElement;   
+
+    static list = [];
+
+    saveList() {
+        var temp = this.newList();
+        MyLists.list.push(temp as never);
+
+        this.renderList();
+    }
+
+    newList() {
+        var listname = document.querySelector("#listname")as HTMLInputElement;
+        return (
+            <div className="thumbnail" key = {listname.value}>
+                <div className="caption">
+                    <h3>{listname.value}</h3>
+                </div>
+            </div >
+        )
+    }
+
+    renderList() {
+        ReactDOM.render(
+            <div>{MyLists.list}</div>, document.getElementById("container"));
     }
 }

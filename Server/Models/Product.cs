@@ -8,7 +8,6 @@ namespace Server.Models
         public string Name { get; set; } = "";
         public string Description { get; set; } = "";
         public float Price {get; set; } = 0;
-        public Client Seller {get; set; }        
         public string Image { get; set; }=" ";
 
        

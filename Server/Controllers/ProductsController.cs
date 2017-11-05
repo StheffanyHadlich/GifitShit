@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace GiftShit.Controllers
+namespace Server.Controllers
 {
     [Route("api/[controller]")]
     public class ProductsController : Controller
@@ -28,7 +28,7 @@ namespace GiftShit.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(await DbContext.Client.ToListAsync());
+            return Ok(await DbContext.Product.ToListAsync());
         }
 
         // GET api/values/5

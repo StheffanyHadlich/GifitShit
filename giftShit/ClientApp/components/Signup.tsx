@@ -2,6 +2,11 @@ import * as React from 'react';
 import {RouteComponentProps} from 'react-router';
 
 export class Signup extends React.Component < RouteComponentProps < {} >, {} > {
+
+    public static username: string;
+    public static useraddress: string;
+    public static userbirthday: Date;
+
     public render() {
         return <div>
             <h1>Enter Your Data</h1>
@@ -43,14 +48,12 @@ export class Signup extends React.Component < RouteComponentProps < {} >, {} > {
                     {()=> this.saveUser()}>Save</button>
                 <button type="button" className="btn btn-default">Cancel</button>
             </div>
-            <p id = "try"></p>
+            <p id="try"></p>
         </div>;
     }
     saveUser() {
-        var username = document.querySelector("#username")as HTMLInputElement;
-        var userbirthday = document.querySelector("#userbirthday")as HTMLInputElement;
-        var useraddress = document.querySelector("#useraddress")as HTMLInputElement;
-        console.log(username.value);
-        document.getElementById("try")!.innerHTML = (username.value + "<br/>" + userbirthday.value + "<br/>" + useraddress.value);
+        Signup.username = (document.querySelector("#username")as HTMLInputElement).value;
+        Signup.useraddress= (document.querySelector("#useraddress")as HTMLInputElement).value;
+        Signup.userbirthday = (document.querySelector("#userbirthday")as HTMLInputElement).valueAsDate;
     }
 }

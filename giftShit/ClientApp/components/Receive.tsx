@@ -16,12 +16,11 @@ class Receive extends Component {
             let products = data
                 .results
                 .map((product : any) => {
+                    console.log(product);
                     return (
                         <div key={product.result}></div>
                     )
                 })
-            this.setState({products: products});
-
         })
     }
     render() {

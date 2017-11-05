@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {RouteComponentProps} from 'react-router';
-
+import {Link, NavLink} from 'react-router-dom';
 export class Login extends React.Component < RouteComponentProps < {} >, {} > {
     public function () {
         console.log("What");
@@ -37,9 +37,7 @@ export class Login extends React.Component < RouteComponentProps < {} >, {} > {
                             onClick
                             ={() => this.saveData()}>Enter</button>
                     </a>
-                    <a href="signup">
-                        <button type="button" className="btn btn-default">Signup</button>
-                    </a>
+                       <NavLink to='/signup'> <button type="button" className="btn btn-default">Signup</button></NavLink>
                 </div>
             </form>
         </div>;

@@ -19,7 +19,7 @@ namespace giftShit
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
+                .UseStartup<Startup>().UseUrls("http://*:5050")
                 .Build();
     }
 }

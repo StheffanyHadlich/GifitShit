@@ -2,7 +2,9 @@ import * as React from 'react';
 import {RouteComponentProps} from 'react-router';
 import * as ReactDOM from 'react-dom';
 import {Component} from 'react';
-import axios from 'axios'
+import axios from 'axios';
+import * as ListContent from "./ListContent"
+
 export class Product extends React.Component < RouteComponentProps < {} >, {} > {
     static products = [];
 
@@ -37,7 +39,7 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
                                 <div className="input-group">
                                     <span className="input-group-addon">Product Name</span>
                                     <input
-                                        id="productname"
+                                        id="newproductname"
                                         type="text"
                                         className="form-control"
                                         placeholder="Name"
@@ -48,7 +50,7 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
                                 <div className="input-group">
                                     <span className="input-group-addon">Description</span>
                                     <textarea
-                                        id="productdescription"
+                                        id="newproductdescription"
                                         type="text"
                                         className="form-control"
                                         placeholder="Description"
@@ -59,7 +61,7 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
                                 <div className="input-group">
                                     <span className="input-group-addon">Price</span>
                                     <input
-                                        id="productprice"
+                                        id="newproductprice"
                                         type="number"
                                         step="0.1"
                                         className="form-control"
@@ -71,7 +73,7 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
                                 <div className="input-group">
                                     <span className="input-group-addon">Image</span>
                                     <input
-                                        id="productimage"
+                                        id="newproductimage"
                                         type="file"
                                         accept="image/*"
                                         className="form-control"
@@ -84,7 +86,7 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
                         <div className="modal-footer">
                             <button
                                 type="button"
-                                onClick={() => this.test()}
+                                onClick={() => this.saveProduct()}
                                 className="btn btn-secondary"
                                 data-dismiss="modal">Save</button>
                             <button type="button" className="btn btn-primary">Cancel</button>
@@ -100,53 +102,69 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
             </h1>
             <div className="row">
                 <div className="col-sm-6 col-md-4">
-                    <div id="container"></div>
-
+                    <div id="container">{Product.products}</div>
                 </div>
             </div>
-            <p id="try"><br/></p>
         </div>
 
     }
 
     saveProduct() {
-
         var temp = this.newProduct();
 
         Product
             .products
             .push(temp as never);
 
-        this.productList();
+        this.productListAtt()
     }
 
     test() {
         axios
-            .get("http://localhost:5000/api/Student")
+            .get('localhost:5000/api/Clients')
             .then(function (data : any) {
                 console.log(data);
             })
     }
 
-    productList() {
+    static ID: number = 0;
+
+    productListAtt() {
         ReactDOM.render(
             <div>{Product.products}</div>, document.getElementById("container"));
     }
 
-    newProduct() {
-        var productname = document.querySelector("#productname")as HTMLInputElement;
-        var productdescription = document.querySelector("#productdescription")as HTMLInputElement;
-        var productprice = document.querySelector("#productprice")as HTMLInputElement;
+    addToList(product : any) {
+        console.log(Product.products);
+        ListContent
+            .ListContent
+            .listContent
+            .push(product as never);
+    }
 
-        return <div className="thumbnail">
-            <div className="caption">
-                <h3 id="productname">{productname.value}</h3>
-                <p id="productdescription">{productdescription.value}</p>
-                <h5 id="productprice">R$ {productprice.valueAsNumber}</h5>
-                <p>
-                    <a className="btn btn-primary" role="button">Add to the list</a>
-                </p>
-            </div>
-        </div >;
+    newProduct() {
+        var productcode = Product.ID;
+        var productname = document.querySelector("#newproductname")as HTMLInputElement;
+        var productdescription = document.querySelector("#newproductdescription")as HTMLInputElement;
+        var productprice = document.querySelector("#newproductprice")as HTMLInputElement;
+
+        Product.ID = Product.ID + 1;
+
+        return (
+            <div className="thumbnail" key={productcode}>
+                <div className="caption">
+                    <h3 id={productname.value + productcode as any as string} name="productname">{productname.value}</h3>
+                    <p id={productdescription.value + productcode as any as string}>{productdescription.value}</p>
+                    <h5 id={productprice.value + productcode as any as string}>R$ {productprice.valueAsNumber}</h5>
+                    <h5 id="productcode">Code {productcode}</h5>
+
+                    <a
+                        className="btn btn-primary"
+                        role="button"
+                        onClick=
+                        {()=>this.addToList(Product.products[productcode])}>Add to the list</a>
+                </div>
+            </div >
+        );
     }
 }
