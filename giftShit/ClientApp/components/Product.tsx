@@ -2,7 +2,8 @@ import * as React from 'react';
 import {RouteComponentProps} from 'react-router';
 import * as ReactDOM from 'react-dom';
 import {Component} from 'react';
-import axios from 'axios'
+import axios from 'axios';
+import * as WebRequest from 'web-request';
 export class Product extends React.Component < RouteComponentProps < {} >, {} > {
     static products = [];
 
@@ -120,12 +121,11 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
         this.productList();
     }
 
-    test() {
-        axios
-            .get("http://localhost:5000/api/Student")
-            .then(function (data : any) {
-                console.log(data);
-            })
+    test() {      //DO SOMETHING!  
+        (async function () {
+            var result = await WebRequest.get('localhost:5000/api/Clients');
+            console.log(result.content);
+        })();
     }
 
     productList() {
