@@ -119,11 +119,25 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
     }
 
     test() {
-        axios
-            .get('localhost:5000/api/Clients')
-            .then(function (data : any) {
-                console.log(data);
+        const url = "http://localhost:5000/api";
+
+        const data = {
+            'name': '',
+            'description': '',
+            'price': ''
+        };
+
+        fetch(`${url}/products`, {
+            method: "GET",
+            mode: "cors",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+                body: JSON.stringify(data)
             })
+            .then(result => result.json())
+            .then(json => console.log(json))
+            .catch(err => console.log("erro", err));
     }
 
     static ID: number = 0;

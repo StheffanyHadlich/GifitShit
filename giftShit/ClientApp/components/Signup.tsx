@@ -56,4 +56,5 @@ export class Signup extends React.Component < RouteComponentProps < {} >, {} > {
         Signup.useraddress= (document.querySelector("#useraddress")as HTMLInputElement).value;
         Signup.userbirthday = (document.querySelector("#userbirthday")as HTMLInputElement).valueAsDate;
     }
+    
 }

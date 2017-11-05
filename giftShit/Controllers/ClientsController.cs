@@ -2,50 +2,49 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Server;
-using Server.Data;
-using Server.Models;
+using giftShit;
+using giftShit.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using giftShit.Data;
 
-namespace Server.Controllers
+//Para usar caso o SQLite funcione daqui
+
+namespace giftShit.Controllers
 {
     [Route("api/[controller]")]
-    public class ProductsController : Controller
+    public class ClientsController : Controller
     {
 
-        public ProductsController(ServerContext dbContext, IOptions<AppSettings> options)
+       public ClientsController(giftShitContext dbContext)
         {
             DbContext = dbContext;
-            AppSettings = options.Value;
         }
 
-        private AppSettings AppSettings { get; }
-        public ServerContext DbContext { get; }
+        public giftShitContext DbContext { get; }
 
         // GET api/values
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            writeline("OK");
-            return Ok(await DbContext.Product.ToListAsync());
+            return Ok(await DbContext.Client.ToListAsync());
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id) //read
         {
-            return Ok(await DbContext.Product.SingleOrDefaultAsync(m => m.Id == id));
+            return Ok(await DbContext.Client.SingleOrDefaultAsync(m => m.Id == id));
 
         }
-        
+
         [HttpPost()]
-        public async Task<IActionResult> Post([FromBody]Product value) // CREATE
+        public async Task<IActionResult> Post([FromBody]Client value) // CREATE
         {
             if (value != null)
             {
-                await DbContext.Product.AddAsync(value);
+                await DbContext.Client.AddAsync(value);
                 await DbContext.SaveChangesAsync();
                 return new NoContentResult();
             }
@@ -56,16 +55,16 @@ namespace Server.Controllers
 
         }
 
-        
+
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(Guid id,[FromBody]Product value) // UPDATE
+        public async Task<IActionResult> Put(Guid id, [FromBody]Client value) // UPDATE
         {
             if (value == null || value.Id != id)
             {
                 return BadRequest();
             }
 
-            var updateValue = await DbContext.Product.FirstOrDefaultAsync(t => t.Id == id);
+            var updateValue = await DbContext.Client.FirstOrDefaultAsync(t => t.Id == id);
 
             if (updateValue == null)
             {
@@ -73,10 +72,10 @@ namespace Server.Controllers
             }
 
             updateValue.Name = value.Name;
-            updateValue.Description = value.Description; 
-            updateValue.Price = value.Price;          
+            updateValue.Address = value.Address;
+            updateValue.Birthday = value.Birthday;
 
-            DbContext.Product.Update(updateValue);
+            DbContext.Client.Update(updateValue);
             await DbContext.SaveChangesAsync();
             return new NoContentResult();
         }
@@ -85,8 +84,8 @@ namespace Server.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var product = await DbContext.Product.SingleOrDefaultAsync(m => m.Id == id);
-            DbContext.Product.Remove(product);
+            var client = await DbContext.Client.SingleOrDefaultAsync(m => m.Id == id);
+            DbContext.Client.Remove(client);
             await DbContext.SaveChangesAsync();
             return NoContent();
         }
