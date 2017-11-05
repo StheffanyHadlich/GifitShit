@@ -3,8 +3,12 @@ import {RouteComponentProps} from 'react-router';
 import * as ReactDOM from 'react-dom';
 import {Component} from 'react';
 import axios from 'axios';
+<<<<<<< HEAD
 import * as ListContent from "./ListContent"
 
+=======
+import * as WebRequest from 'web-request';
+>>>>>>> c159655d52eb27d593e490b1bef538cbc42a6776
 export class Product extends React.Component < RouteComponentProps < {} >, {} > {
     static products = [];
 
@@ -119,12 +123,20 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
         this.productListAtt()
     }
 
+<<<<<<< HEAD
     test() {
         axios
             .get('localhost:5000/api/Clients')
             .then(function (data : any) {
                 console.log(data);
             })
+=======
+    test() {      //DO SOMETHING!  
+        (async function () {
+            var result = await WebRequest.get('localhost:5000/api/Clients');
+            console.log(result.content);
+        })();
+>>>>>>> c159655d52eb27d593e490b1bef538cbc42a6776
     }
 
     static ID: number = 0;
