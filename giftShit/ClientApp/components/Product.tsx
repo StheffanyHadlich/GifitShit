@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {RouteComponentProps} from 'react-router';
 import * as ReactDOM from 'react-dom';
-
+import {Component} from 'react';
+import axios from 'axios'
 export class Product extends React.Component < RouteComponentProps < {} >, {} > {
     static products = [];
 
@@ -83,7 +84,7 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
                         <div className="modal-footer">
                             <button
                                 type="button"
-                                onClick={() => this.saveProduct()}
+                                onClick={() => this.test()}
                                 className="btn btn-secondary"
                                 data-dismiss="modal">Save</button>
                             <button type="button" className="btn btn-primary">Cancel</button>
@@ -97,8 +98,12 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
             < h1>
                 All Products
             </h1>
+            <div className="row">
+                <div className="col-sm-6 col-md-4">
+                    <div id="container"></div>
 
-            <div id="container"></div>
+                </div>
+            </div>
             <p id="try"><br/></p>
         </div>
 
@@ -115,6 +120,14 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
         this.productList();
     }
 
+    test() {
+        axios
+            .get("http://localhost:5000/api/Student")
+            .then(function (data : any) {
+                console.log(data);
+            })
+    }
+
     productList() {
         ReactDOM.render(
             <div>{Product.products}</div>, document.getElementById("container"));
@@ -125,19 +138,15 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
         var productdescription = document.querySelector("#productdescription")as HTMLInputElement;
         var productprice = document.querySelector("#productprice")as HTMLInputElement;
 
-        return <div className="row">
-            <div className="col-sm-6 col-md-4">
-                <div className="thumbnail">
-                    <div className="caption">
-                        <h3 id="productname">{productname.value}</h3>
-                        <p id="productdescription">{productdescription.value}</p>
-                        <h5 id="productprice">R$ {productprice.valueAsNumber}</h5>
-                        <p>
-                            <a className="btn btn-primary" role="button">Add to the list</a>
-                        </p>
-                    </div>
-                </div>
-            </div >
-        </div>;
+        return <div className="thumbnail">
+            <div className="caption">
+                <h3 id="productname">{productname.value}</h3>
+                <p id="productdescription">{productdescription.value}</p>
+                <h5 id="productprice">R$ {productprice.valueAsNumber}</h5>
+                <p>
+                    <a className="btn btn-primary" role="button">Add to the list</a>
+                </p>
+            </div>
+        </div >;
     }
 }
