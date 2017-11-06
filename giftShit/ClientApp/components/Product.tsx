@@ -5,10 +5,24 @@ import {Component} from 'react';
 import axios from 'axios';
 import * as ListContent from "./ListContent"
 
-export class Product extends React.Component < RouteComponentProps < {} >, {} > {
+export class Product extends React.Component < RouteComponentProps < {} >,
+listOfProducts > {
     static products = [];
 
+    constructor() {
+        super();
+        this.state = {
+            forecasts: []
+        }
+    }
+
+    componentWillMount() {
+        let forecasts = Product.products;
+        this.setState({forecasts: forecasts});
+    }
+
     public render() {
+        let content = this.renderProducts(this.state.forecasts);
         return <div>
 
             <h1>Add a New Product</h1>
@@ -100,89 +114,88 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
             < h1>
                 All Products
             </h1>
-            <div className="row">
-                <div className="col-sm-6 col-md-4">
-                    <div id="container">{Product.products}</div>
-                </div>
-            </div>
+            <div>{content}</div>
         </div>
 
     }
 
+    renderProducts(forecasts : productsContent[]) {
+        return <div>
+            {forecasts.map(forecasts => <div className="row">
+                <div className="col-sm-6 col-md-4">
+                    <div className="thumbnail">
+                        <div className="caption">
+                            <h3 id={"productname"} name="productname">{forecasts.name}</h3>
+                            <p id={"productdescription"}>{forecasts.description}</p>
+                            <h5 id={"productprice"}>R$ {forecasts.price}</h5>
+                            <a
+                                className="btn btn-primary"
+                                role="button"
+                                onClick=
+                                {()=>this.addToList(forecasts)}>Add to the list</a>
+                        </div>
+                    </div >
+                </div>
+            </div>)}
+        </div>
+    }
+
     saveProduct() {
-        var temp = this.newProduct();
+        //var temp = this.newProduct();
+        var newProduct = this.newProduct();
+        var double = false;
+        var forecasts = this.state.forecasts;
+        forecasts.push({name: newProduct.productname, description: newProduct.productdescription, price: newProduct.productprice});
 
-        Product
-            .products
-            .push(temp as never);
+        //fix this
+        if (Product.products.indexOf(forecasts[forecasts.length]as never) == -1) {
 
-        this.productListAtt();
+            this.setState({forecasts: forecasts});
+            Product.products = forecasts as never;
+
+            // console.log(forecasts.map(forecasts => forecasts.name))
+            // Product.products.push(temp as never);
+
+        } else {
+            alert("Is already a product with this name");
+
+        }
     }
-
-    test() {
-        axios
-            .get('localhost:5000/api/Clients')
-            .then(function (data : any) {
-                console.log(data);
-            })
-    }
-
-    static ID: number = 0;
 
     productListAtt() {
         ReactDOM.render(
             <div>{Product.products}</div>, document.getElementById("container"));
     }
 
-    addToList(product : any) {
-
-        console.log(Product.products);
-        ListContent
-            .ListContent
-            .listContent
-            .push(product as never);
+    addToList(cast : productsContent) {
+        if (ListContent.ListContent.listContent.indexOf(cast as never) == -1) {
+            ListContent
+                .ListContent
+                .listContent
+                .push(cast as never);
+        } else {
+            alert("Error: Product is already on the list !!!");
+        }
     }
-   
-    static temp = [];
+
     newProduct() {
 
-        var productcode = Product.ID;
-        var productname = document.querySelector("#newproductname")as HTMLInputElement;
-        var productdescription = document.querySelector("#newproductdescription")as HTMLInputElement;
-        var productprice = document.querySelector("#newproductprice")as HTMLInputElement;
-
-        var newp = {
-            productcode: Product.ID,
+        var newproduct = {
             productname: (document.querySelector("#newproductname")as HTMLInputElement).value,
             productdescription: (document.querySelector("#newproductdescription")as HTMLInputElement).value,
-            productprice: (document.querySelector("#newproductprice")as HTMLInputElement).value
+            productprice: (document.querySelector("#newproductprice")as HTMLInputElement).valueAsNumber
         }
 
-        Product
-            .temp
-            .push(newp as never)
-        var teem = Product.temp[0]as Object;
-
-        console.log();
-
-        Product.ID = Product.ID + 1;
-
-        return (
-            <div className="thumbnail" key={productcode}>
-                <div className="caption">
-                    <h3 id={"productname" + productcode as any as string} name="productname">{productname.value}</h3>
-                    <p id={productdescription.value + productcode as any as string}>{productdescription.value}</p>
-                    <h5 id={productprice.value + productcode as any as string}>R$ {productprice.valueAsNumber}</h5>
-                    <h5 id="productcode">Code {productcode}</h5>
-
-                    <a
-                        className="btn btn-primary"
-                        role="button"
-                        onClick=
-                        {()=>this.addToList(Product.products[productcode])}>Add to the list</a>
-                </div>
-            </div >
-        );
+        return newproduct;
     }
 }
 
+interface productsContent {
+    name : string;
+    description : string;
+    price : number;
+}
+
+interface listOfProducts {
+    forecasts : productsContent[];
+}

@@ -1,13 +1,35 @@
 import * as React from 'react';
 import {RouteComponentProps} from 'react-router';
 
-export class Signup extends React.Component < RouteComponentProps < {} >, {} > {
+interface userContent {
+    name : string;
+    address : string;
+    date : string;
+}
+export class Signup extends React.Component < RouteComponentProps < {} >,
+userContent > {
 
-    public static username: string;
-    public static useraddress: string;
-    public static userbirthday: Date;
-
+    constructor() {
+        super();
+        this.state = {
+            name: "empty",
+            address: "empty",
+            date: "empty"
+        }
+    }
+    static user={
+        name: "empty",
+        address: "empty",
+        date: "empty"
+    };
+    componentWillMount() {
+        var name = Signup.user.name;
+        var address = Signup.user.address;
+        var date = Signup.user.date;
+        this.setState({name: name, address: address, date: date});
+    }
     public render() {
+
         return <div>
             <h1>Enter Your Data</h1>
             <div className="input-group">
@@ -16,7 +38,6 @@ export class Signup extends React.Component < RouteComponentProps < {} >, {} > {
                     id="username"
                     type="text"
                     className="form-control"
-                    placeholder="Username"
                     aria-describedby="username"/>
             </div>
             <br/>
@@ -26,7 +47,6 @@ export class Signup extends React.Component < RouteComponentProps < {} >, {} > {
                     id="useraddress"
                     type="text"
                     className="form-control"
-                    placeholder="Address"
                     aria-describedby="address"/>
             </div>
             <br/>
@@ -36,7 +56,6 @@ export class Signup extends React.Component < RouteComponentProps < {} >, {} > {
                     id="userbirthday"
                     type="date"
                     className="form-control"
-                    placeholder="Birthday"
                     aria-describedby="date"/>
             </div>
             <br/>
@@ -48,12 +67,39 @@ export class Signup extends React.Component < RouteComponentProps < {} >, {} > {
                     {()=> this.saveUser()}>Save</button>
                 <button type="button" className="btn btn-default">Cancel</button>
             </div>
-            <p id="try"></p>
+            <br/>
+            <h1>Current User</h1>
+            <div>
+                {this.renderUser()}
+            </div>
         </div>;
     }
     saveUser() {
-        Signup.username = (document.querySelector("#username")as HTMLInputElement).value;
-        Signup.useraddress= (document.querySelector("#useraddress")as HTMLInputElement).value;
-        Signup.userbirthday = (document.querySelector("#userbirthday")as HTMLInputElement).valueAsDate;
+        var newUser = this.newUser();
+        var name = newUser.username;
+        var address = newUser.useraddress;
+        var date = newUser.userbirthday;
+
+        this.setState({name: name, address: address, date: date});
+
+        Signup.user = {name,address,date};
+    }
+    renderUser() {
+        return <div>
+            <h3>UserName : {this.state.name}</h3>
+            <h3>UserAddress : {this.state.address}</h3>
+            <h3>UserBirthday : {this.state.date}</h3>
+
+        </div>
+
+    }
+
+    newUser() {
+        var newUser = {
+            username: (document.querySelector("#username")as HTMLInputElement).value,
+            useraddress: (document.querySelector("#useraddress")as HTMLInputElement).value,
+            userbirthday: (document.querySelector("#userbirthday")as HTMLInputElement).value
+        }
+        return newUser;
     }
 }
