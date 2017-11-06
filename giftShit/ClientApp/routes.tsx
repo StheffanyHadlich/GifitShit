@@ -18,7 +18,7 @@ export const routes = <Layout>
     <Route exact path='/' component={ Login } />
     <Route path='/login' component={ Login } />
     <Route path='/listcontent' component={ ListContent } />
-    <Route path='/lists' component={ ListContent } />
+    <Route path='/lists' component={ MyLists } />
     <Route path='/counter' component={ Counter } />    
     <Route path='/home' component={ Home } />
     <Route path='/fetchdata' component={ FetchData } />

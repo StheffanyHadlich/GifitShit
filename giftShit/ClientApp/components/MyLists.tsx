@@ -3,8 +3,27 @@ import {RouteComponentProps} from 'react-router';
 import * as ReactDOM from 'react-dom';
 import * as ListContent from "./ListContent";
 import {Link, NavLink} from 'react-router-dom';
+interface List {
+    name : string;
+}
+export class MyLists extends React.Component < RouteComponentProps < {} >,
+List > {
 
-export class MyLists extends React.Component < RouteComponentProps < {} >, {} > {
+    constructor() {
+        super();
+        this.state = {
+            name: "empty"
+        }
+    }
+
+    static list = {
+        name: "empty"
+    }
+
+    componentWillMount() {
+        var name = MyLists.list.name;
+        this.setState({name: name});
+    }
 
     public render() {
         return <div>
@@ -12,7 +31,7 @@ export class MyLists extends React.Component < RouteComponentProps < {} >, {} > 
             <h1>Add a New List</h1>
             <button
                 type="button"
-                className="btn btn-primary"
+                className="btn btn-success"
                 data-toggle="modal"
                 data-target="#exampleModal">New List</button>
 
@@ -52,7 +71,7 @@ export class MyLists extends React.Component < RouteComponentProps < {} >, {} > 
                                 {()=> this.saveList()}
                                 className="btn btn-secondary"
                                 data-dismiss="modal">Save</button>
-                            <button type="button" className="btn btn-primary">Cancel</button>
+                            <button type="button" data-dismiss="modal" className="btn btn-primary">Cancel</button>
                         </div>
                     </div>
                 </div>
@@ -65,35 +84,41 @@ export class MyLists extends React.Component < RouteComponentProps < {} >, {} > 
                 My Lists
             </h1>
             <div className="row">
-                <div className="col-sm-6 col-md-4">
-                    <div id="container">{MyLists.list}</div>
+                <div className="card w-100" id="container">
+                    {this.renderList()}
                 </div>
+                <NavLink to={'/listcontent'}/>
             </div>
         </div>
     }
 
-    static list = [];
-
     saveList() {
-        var temp = this.newList();
-        MyLists.list.push(temp as never);
-
-        this.renderList();
+        var name = this.newList();
+        this.setState({name: name});
+        MyLists.list = {
+            name
+        };
     }
 
     newList() {
-        var listname = document.querySelector("#listname")as HTMLInputElement;
-        return (
-            <div className="thumbnail" key = {listname.value}>
-                <div className="caption">
-                    <h3>{listname.value}</h3>
-                </div>
-            </div >
-        )
+        return (document.querySelector("#listname")as HTMLInputElement).value;
     }
 
     renderList() {
-        ReactDOM.render(
-            <div>{MyLists.list}</div>, document.getElementById("container"));
+        if (this.state.name == "empty") {
+            return <div/>
+        } else {
+            return (
+                <div className="card-body">
+                    <h3 className="card-title" id={"listname"} name="listname">{this.state.name}</h3>
+                    <NavLink to='listcontent'>
+                        <div className="card text-rigth">
+                            <button className="btn btn-primary" role="button">Go to my list</button>
+                        </div>
+
+                    </NavLink>
+                </div>
+            )
+        }
     }
 }

@@ -6,8 +6,8 @@
 .main-nav li a.active,
 .main-nav li a.active:hover,
 .main-nav li a.active:focus {
-    background-color:pink;
-    color: blueviolet;
+    background-color:blueviolet;
+    color: white;
 }
 
 /* Keep the nav menu independent of scrolling and on top of other items */

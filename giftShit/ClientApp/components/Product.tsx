@@ -103,7 +103,7 @@ listOfProducts > {
                                 onClick={() => this.saveProduct()}
                                 className="btn btn-secondary"
                                 data-dismiss="modal">Save</button>
-                            <button type="button" className="btn btn-primary">Cancel</button>
+                            <button type="button" data-dismiss="modal" className="btn btn-primary">Cancel</button>
                         </div>
                     </div>
                 </div>
@@ -114,29 +114,29 @@ listOfProducts > {
             < h1>
                 All Products
             </h1>
-            <div>{content}</div>
+            <div className="row">{content}</div>
         </div>
 
     }
 
     renderProducts(forecasts : productsContent[]) {
         return <div>
-            {forecasts.map(forecasts => <div className="row">
-                <div className="col-sm-6 col-md-4">
-                    <div className="thumbnail">
-                        <div className="caption">
-                            <h3 id={"productname"} name="productname">{forecasts.name}</h3>
-                            <p id={"productdescription"}>{forecasts.description}</p>
-                            <h5 id={"productprice"}>R$ {forecasts.price}</h5>
+            {forecasts.map(forecasts => 
+                <div className="col-sm-6">
+                    <div className="card">
+                        <div className="card-body">
+                            <h3 className = "cardtitle" id={"productname"} name="productname">{forecasts.name}</h3>
+                            <p className = "card-text" id={"productdescription"}>{forecasts.description}</p>
+                            <h5 className = "card-text"id={"productprice"}>R$ {forecasts.price}</h5>
                             <a
-                                className="btn btn-primary"
+                                className="btn btn-success"
                                 role="button"
                                 onClick=
                                 {()=>this.addToList(forecasts)}>Add to the list</a>
                         </div>
                     </div >
                 </div>
-            </div>)}
+            )}
         </div>
     }
 

@@ -29,7 +29,6 @@ userContent > {
         this.setState({name: name, address: address, date: date});
     }
     public render() {
-
         return <div>
             <h1>Enter Your Data</h1>
             <div className="input-group">
@@ -37,6 +36,7 @@ userContent > {
                 <input
                     id="username"
                     type="text"
+                    placeholder={this.state.name}                    
                     className="form-control"
                     aria-describedby="username"/>
             </div>
@@ -47,6 +47,7 @@ userContent > {
                     id="useraddress"
                     type="text"
                     className="form-control"
+                    placeholder={this.state.address}
                     aria-describedby="address"/>
             </div>
             <br/>
@@ -55,6 +56,8 @@ userContent > {
                 <input
                     id="userbirthday"
                     type="date"
+                    placeholder={this.state.date}
+                    
                     className="form-control"
                     aria-describedby="date"/>
             </div>
