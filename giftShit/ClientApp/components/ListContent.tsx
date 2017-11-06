@@ -2,8 +2,7 @@ import * as React from 'react';
 import {RouteComponentProps} from 'react-router';
 import * as ReactDOM from 'react-dom';
 import * as MyLists from "./MyLists"
-export class ListContent extends React.Component < RouteComponentProps < {} >,
-Exm > {
+export class ListContent extends React.Component < RouteComponentProps < {} >,Exm > {
 
     constructor() {
         super();
@@ -19,7 +18,7 @@ Exm > {
         console.log(forecasts.map(forecasts => (forecasts)))
     }
     public render() {
-        let content = ListContent.letsRender(this.state.forecasts);
+        let content = this.letsRender(this.state.forecasts);
         return <div>
             <h1>{MyLists.MyLists.list.name}</h1>
             < h1 id="listName"></h1>
@@ -29,19 +28,26 @@ Exm > {
         </div>
     }
 
-    removeList() {}
+    public removeList(cast:teste) {
+        var forecasts = this.state.forecasts;
+        var index = forecasts.indexOf(cast as never);
+        forecasts.splice(index,1);
+        this.setState({forecasts:forecasts});
 
-    public static letsRender(forecasts : teste[]) {
+        ListContent.listContent = forecasts as never;
+    }
+
+    public letsRender(forecasts : teste[]) {
         return <div>
             {forecasts.map(forecasts => <div className="row">
-                <div className="col-sm-6 col-md-4">
-                    <div className="thumbnail">
-                        <div className="caption">
-                            <h3 id={"productname"} name="productname">{forecasts.name}</h3>
-                            <a className="btn btn-primary" role="button">Remove to the list</a>
-                        </div>
-                    </div >
-                </div>
+                <div className="card">
+                    <div className="card-body">
+                        <h3 className="cardtitle" id={"productname"} name="productname">{forecasts.name}</h3>
+                        <p className="card-text" id={"productdescription"}>{forecasts.description}</p>
+                        <h5 className="card-text" id={"productprice"}>R$ {forecasts.price}</h5>
+                        <a className="btn btn-primary" onClick={()=> this.removeList(forecasts)} role="button">Remove to the list</a>
+                       </div>
+                </div >
             </div>)}
         </div>
     }
@@ -50,6 +56,8 @@ Exm > {
 
 interface teste {
     name : string;
+    description:string;
+    price:string;
 }
 
 interface Exm {
