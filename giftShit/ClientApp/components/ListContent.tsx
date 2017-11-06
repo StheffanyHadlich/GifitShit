@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {RouteComponentProps} from 'react-router';
 import * as ReactDOM from 'react-dom';
-
+import * as MyLists from "./MyLists"
 export class ListContent extends React.Component < RouteComponentProps < {} >,
 Exm > {
 
@@ -13,21 +13,23 @@ Exm > {
     }
     static listContent = [];
 
-    componentWillMount(){
+    componentWillMount() {
         let forecasts = ListContent.listContent;
-        this.setState({forecasts:forecasts});
+        this.setState({forecasts: forecasts});
         console.log(forecasts.map(forecasts => (forecasts)))
     }
     public render() {
         let content = ListContent.letsRender(this.state.forecasts);
         return <div>
-            < h1 id="listName">
-            </h1>
+            <h1>{MyLists.MyLists.list.name}</h1>
+            < h1 id="listName"></h1>
             <div id="list">
                 {content}
             </div>
         </div>
     }
+
+    removeList() {}
 
     public static letsRender(forecasts : teste[]) {
         return <div>
@@ -36,7 +38,7 @@ Exm > {
                     <div className="thumbnail">
                         <div className="caption">
                             <h3 id={"productname"} name="productname">{forecasts.name}</h3>
-                            <a className="btn btn-primary" role="button">Add to the list</a>
+                            <a className="btn btn-primary" role="button">Remove to the list</a>
                         </div>
                     </div >
                 </div>

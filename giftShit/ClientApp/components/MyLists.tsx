@@ -115,7 +115,6 @@ List > {
                         <div className="card text-rigth">
                             <button className="btn btn-primary" role="button">Go to my list</button>
                         </div>
-
                     </NavLink>
                 </div>
             )

@@ -4,6 +4,8 @@ import * as ReactDOM from 'react-dom';
 import {Component} from 'react';
 import axios from 'axios';
 import * as ListContent from "./ListContent"
+import * as MyLists from "./MyLists";
+import {Link, NavLink} from 'react-router-dom';
 
 export class Product extends React.Component < RouteComponentProps < {} >,
 listOfProducts > {
@@ -108,6 +110,13 @@ listOfProducts > {
                     </div>
                 </div>
             </div>
+            <div
+                className="modal fade"
+                id="containermodal"
+                role="dialog"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"></div>
+
             <br/>
             <br/>
 
@@ -121,43 +130,70 @@ listOfProducts > {
 
     renderProducts(forecasts : productsContent[]) {
         return <div>
-            {forecasts.map(forecasts => 
-                <div className="col-sm-6">
-                    <div className="card">
-                        <div className="card-body">
-                            <h3 className = "cardtitle" id={"productname"} name="productname">{forecasts.name}</h3>
-                            <p className = "card-text" id={"productdescription"}>{forecasts.description}</p>
-                            <h5 className = "card-text"id={"productprice"}>R$ {forecasts.price}</h5>
-                            <a
-                                className="btn btn-success"
-                                role="button"
-                                onClick=
-                                {()=>this.addToList(forecasts)}>Add to the list</a>
-                        </div>
-                    </div >
-                </div>
-            )}
+            {forecasts.map(forecasts => <div className="col-sm-6">
+                <div className="card">
+                    <div className="card-body">
+                        <h3 className="cardtitle" id={"productname"} name="productname">{forecasts.name}</h3>
+                        <p className="card-text" id={"productdescription"}>{forecasts.description}</p>
+                        <h5 className="card-text" id={"productprice"}>R$ {forecasts.price}</h5>
+                        <a
+                            className="btn btn-success"
+                            role="button"
+                            onClick=
+                            {()=>this.addToList(forecasts)}>Add to the list</a>
+                    </div>
+                </div >
+            </div>)}
         </div>
     }
 
+    renderModal() {
+        ReactDOM.render(
+            <div className="modal-dialog" role="document">
+            <div className="modal-content">
+                <div className="modal-header">
+                    <h5 className="modal-title" id="exampleModalLabel">New List</h5>
+                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div className="modal-body">
+                    <form name="newproduct">
+
+                        <h1>You don't have a list Yet</h1>
+
+                    </form>
+                </div>
+                <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Create a List</button>
+                    <button type="button" data-dismiss="modal" className="btn btn-primary">Cancel</button>
+                </div>
+            </div>
+        </div>, document.getElementById("containermodal"));
+
+    }
     saveProduct() {
         //var temp = this.newProduct();
+
         var newProduct = this.newProduct();
         var double = false;
+        var aux : productsContent;
+        aux = ({name: newProduct.productname, description: newProduct.productdescription, price: newProduct.productprice});
         var forecasts = this.state.forecasts;
-        forecasts.push({name: newProduct.productname, description: newProduct.productdescription, price: newProduct.productprice});
 
-        //fix this
-        if (Product.products.indexOf(forecasts[forecasts.length]as never) == -1) {
+        forecasts.map(p => {
+            if (aux.name == p.name) {
+                double = true;
+            }
+        })
 
-            this.setState({forecasts: forecasts});
-            Product.products = forecasts as never;
-
-            // console.log(forecasts.map(forecasts => forecasts.name))
-            // Product.products.push(temp as never);
+        if (double) {
+            alert("Is already a product with this name");
 
         } else {
-            alert("Is already a product with this name");
+            forecasts.push({name: newProduct.productname, description: newProduct.productdescription, price: newProduct.productprice});
+            this.setState({forecasts: forecasts});
+            Product.products = forecasts as never;
 
         }
     }
@@ -168,13 +204,17 @@ listOfProducts > {
     }
 
     addToList(cast : productsContent) {
-        if (ListContent.ListContent.listContent.indexOf(cast as never) == -1) {
-            ListContent
-                .ListContent
-                .listContent
-                .push(cast as never);
+        if (MyLists.MyLists.list.name == "empty") {
+            alert("You don't have a list yet, click on MyLists and create one");
         } else {
-            alert("Error: Product is already on the list !!!");
+            if (ListContent.ListContent.listContent.indexOf(cast as never) == -1) {
+                ListContent
+                    .ListContent
+                    .listContent
+                    .push(cast as never);
+            } else {
+                alert("Error: Product is already on the list !!!");
+            }
         }
     }
 
