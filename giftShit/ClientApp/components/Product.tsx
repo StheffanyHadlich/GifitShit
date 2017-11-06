@@ -4,6 +4,7 @@ import * as ReactDOM from 'react-dom';
 import {Component} from 'react';
 import axios from 'axios';
 import * as ListContent from "./ListContent"
+
 export class Product extends React.Component < RouteComponentProps < {} >, {} > {
     static products = [];
 
@@ -115,7 +116,7 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
             .products
             .push(temp as never);
 
-        this.productListAtt()
+        this.productListAtt();
     }
 
     test() {
@@ -134,25 +135,42 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
     }
 
     addToList(product : any) {
+
         console.log(Product.products);
         ListContent
             .ListContent
             .listContent
             .push(product as never);
     }
-
+   
+    static temp = [];
     newProduct() {
+
         var productcode = Product.ID;
         var productname = document.querySelector("#newproductname")as HTMLInputElement;
         var productdescription = document.querySelector("#newproductdescription")as HTMLInputElement;
         var productprice = document.querySelector("#newproductprice")as HTMLInputElement;
+
+        var newp = {
+            productcode: Product.ID,
+            productname: (document.querySelector("#newproductname")as HTMLInputElement).value,
+            productdescription: (document.querySelector("#newproductdescription")as HTMLInputElement).value,
+            productprice: (document.querySelector("#newproductprice")as HTMLInputElement).value
+        }
+
+        Product
+            .temp
+            .push(newp as never)
+        var teem = Product.temp[0]as Object;
+
+        console.log();
 
         Product.ID = Product.ID + 1;
 
         return (
             <div className="thumbnail" key={productcode}>
                 <div className="caption">
-                    <h3 id={productname.value + productcode as any as string} name="productname">{productname.value}</h3>
+                    <h3 id={"productname" + productcode as any as string} name="productname">{productname.value}</h3>
                     <p id={productdescription.value + productcode as any as string}>{productdescription.value}</p>
                     <h5 id={productprice.value + productcode as any as string}>R$ {productprice.valueAsNumber}</h5>
                     <h5 id="productcode">Code {productcode}</h5>
@@ -167,3 +185,4 @@ export class Product extends React.Component < RouteComponentProps < {} >, {} > 
         );
     }
 }
+
